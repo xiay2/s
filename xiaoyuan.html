@@ -779,12 +779,25 @@ body.dark-mode .device-info {
     </style>
 </head>
 <body>
+<script>
+  // 监听网页加载完成事件（DOM+资源加载完毕）
+  window.addEventListener('load', function() {
+    // 获取所有延迟加载的图片
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    // 遍历图片，触发加载
+    lazyImages.forEach(img => {
+      img.src = img.dataset.src; // 赋值真实图片地址
+      img.removeAttribute('data-src'); // 移除自定义属性（避免重复处理）
+    });
+  });
+</script>
+</body>
 <body>
     <!-- 新标题栏（布满屏幕+高度100px） -->
     <div class="new-header">
         <!-- 可自定义标题栏内容，比如网站名称、logo等，示例如下 -->
         <div class="new-header-content">
-            <img src="icon.png" alt="网站logo" class="new-header-logo">
+            <img data-src="icon.png" alt="网站logo" class="new-header-logo">
             <div class="new-header-title">Xiaoyuan exclusive website. Xiaoyuan Nb </div>
         </div>
     </div>
@@ -805,17 +818,17 @@ body.dark-mode .device-info {
     <!-- 新增右上角按钮 -->
     <div class="top-right-buttons">
         <button class="top-btn" id="musicBtn" onclick="toggleMusic()">
-            <img src="sy1.png" alt="音乐">
+            <img data-src="sy1.png" alt="音乐">
         </button>
         <button class="top-btn" id="settingBtn" onclick="openPanel('setting')">
-            <img src="shezhi.png" alt="设置">
+            <img data-src="shezhi.png" alt="设置">
         </button>
     </div>
     
     <div class="container">
         
         <div class="profile">
-            <img src="touxiang.png" alt="小源的头像" class="profile-avatar">
+            <img data-src="touxiang.png" alt="小源的头像" class="profile-avatar">
             <div class="profile-name">小源呀</div>
             <div class="profile-english-name">Xiaoyuan</div>
             <div class="button-container">
@@ -844,7 +857,7 @@ body.dark-mode .device-info {
             <div class="panel-content-wrapper">
                 <div class="panel-content">
                     <div class="social-item" onclick="openKuaishouProfile()">
-                        <img src="ks.png" alt="快手图标" class="social-avatar">
+                        <img data-src="ks.png" alt="快手图标" class="social-avatar">
                         <div>
                             <div class="social-name">我的快手主页</div>
                             <div class="social-id">id:x1594482</div>
@@ -874,17 +887,17 @@ body.dark-mode .device-info {
             <div class="panel-content-wrapper">
                 <div class="panel-content">
                     <div class="resource-item" onclick="openResourceLink('https://www.123912.com/s/0RONTd-ijSj3')">
-                        <img src="sy.png" alt="软件分享图标" class="resource-icon">
+                        <img data-src="sy.png" alt="软件分享图标" class="resource-icon">
                         <div class="resource-name">软件分享(Android应用)</div>
                         <div class="arrow-right"></div>
                     </div>
                     <div class="resource-item" onclick="openResourceLink('https://www.123912.com/s/0RONTd-qjSj3')">
-                        <img src="mc.png" alt="Mc模组图标" class="resource-icon">
+                        <img data-src="mc.png" alt="Mc模组图标" class="resource-icon">
                         <div class="resource-name">mc模组</div>
                         <div class="arrow-right"></div>
                     </div>
                     <div class="resource-item" onclick="openResourceLink('https://www.123912.com/s/0RONTd-5jSj3')">
-                        <img src="yy.png" alt="所有资源图标" class="resource-icon">
+                        <img data-src="yy.png" alt="所有资源图标" class="resource-icon">
                         <div class="resource-name">所有资源</div>
                         <div class="arrow-right"></div>
                     </div>
@@ -911,12 +924,12 @@ body.dark-mode .device-info {
             <div class="panel-content-wrapper">
                 <div class="panel-content">
                     <div class="fun-item" onclick="openInfinitePopups()">
-                        <img src="ic0001.png" alt="无限弹窗图标" class="fun-icon">
+                        <img data-src="ic0001.png" alt="无限弹窗图标" class="fun-icon">
                         <div class="fun-name">无限弹窗</div>
                         <div class="arrow-right"></div>
                     </div>
                     <div class="resource-item" onclick="openResourceLink('https://wer11145.github.io/think/')">
-                        <img src="ic0002.png" alt="其它图片" class="resource-icon">
+                        <img data-src="ic0002.png" alt="其它图片" class="resource-icon">
                         <div class="resource-name">外部链接</div>
                         <div class="arrow-right"></div>
                     </div>
@@ -944,7 +957,7 @@ body.dark-mode .device-info {
              
                 <div class="panel-content">
     <div style="text-align: center">
-        <img src="ic0003.png" alt="图标" style="width: 65%; height: 40%;  margin-bottom: 8px; object-fit: cover;">
+        <img data-src="ic0003.png" alt="图标" style="width: 65%; height: 40%;  margin-bottom: 8px; object-fit: cover;">
         <p style="font-size: 18px; color: var(--theme-color); font-weight: 600; margin: 0;">Xiaoyuan exclusive website</p>
         <p style="font-size: 18px; color: var(--theme-color); font-weight: 600; margin: 0;">v1.3.0.0.5 beta </p>
     </div>

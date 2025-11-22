@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>小源的网站</title> 
+        <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .image-container {
+            width: 67px;
+            height: 67px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .jumping-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: jump 1.5s ease-in-out infinite;
+        }
+        
+        .progress-container {
+            width: 80%;
+            max-width: 400px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #ff69b4;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .percentage {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+        
+        @keyframes jump {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style> 
+    </head> 
+    <body> 
+        <div class="loading-screen" id="loadingScreen"> 
+            <div class="image-container"> 
+                <img src="ica01.png" alt="跳动图片" class="jumping-image" id="jumpingImage"> 
+            </div> 
+            <div class="progress-container"> 
+                <div class="progress-bar"> 
+                    <div class="progress" id="progress"></div> 
+                </div> 
+                <div class="percentage" id="percentage">
+                    0%
+                </div> 
+            </div> 
+        </div> 
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jumpingImage = document.getElementById('jumpingImage');
+            const progressBar = document.getElementById('progress');
+            const percentage = document.getElementById('percentage');
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            let currentImage = 1;
+            let progress = 0;
+            let startTime = Date.now();
+            let animationFrameId;
+            
+            // 图片切换函数
+            function switchImage() {
+                currentImage = (currentImage % 5) + 1;
+                jumpingImage.src = `ica0${currentImage}.png`;
+            }
+            
+            // 更新进度条函数
+            function updateProgress() {
+                const elapsed = Date.now() - startTime;
+                progress = Math.min(Math.floor((elapsed / 8000) * 100), 100);
+                
+                progressBar.style.width = `${progress}%`;
+                percentage.textContent = `${progress}%`;
+                
+                if (elapsed >= 10000) {
+                    closeLoadingScreen();
+                } else {
+                    animationFrameId = requestAnimationFrame(updateProgress);
+                }
+            }
+            
+            // 关闭加载界面
+            function closeLoadingScreen() {
+                cancelAnimationFrame(animationFrameId);
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    // 跳转到新页面
+                    window.location.href = 'xiaoyuan.html';
+                }, 500);
+            }
+            
+            // 监听动画迭代事件
+            jumpingImage.addEventListener('animationiteration', switchImage);
+            
+            // 初始设置
+            switchImage();
+            updateProgress();
+        });
+    </script>  
+    </body>
+</html>

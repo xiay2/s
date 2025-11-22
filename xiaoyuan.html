@@ -779,19 +779,6 @@ body.dark-mode .device-info {
     </style>
 </head>
 <body>
-<script>
-  // 监听网页加载完成事件（DOM+资源加载完毕）
-  window.addEventListener('load', function() {
-    // 获取所有延迟加载的图片
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    // 遍历图片，触发加载
-    lazyImages.forEach(img => {
-      img.src = img.dataset.src; // 赋值真实图片地址
-      img.removeAttribute('data-src'); // 移除自定义属性（避免重复处理）
-    });
-  });
-</script>
-</body>
 <body>
     <!-- 新标题栏（布满屏幕+高度100px） -->
     <div class="new-header">
@@ -1677,5 +1664,18 @@ async function getIpAddress() {
 
 
     </script>
+    <script>
+  // 监听网页加载完成事件（DOM+资源加载完毕）
+  window.addEventListener('load', function() {
+    // 获取所有延迟加载的图片
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    // 遍历图片，触发加载
+    lazyImages.forEach(img => {
+      img.src = img.dataset.src; // 赋值真实图片地址
+      img.removeAttribute('data-src'); // 移除自定义属性（避免重复处理）
+    });
+  });
+</script>
+</body>
 </body>
 </html>
